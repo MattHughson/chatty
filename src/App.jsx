@@ -23,17 +23,70 @@ class App extends Component {
         content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
       }
     ]
-  }
-  ;
-    // Called after the component was rendered and it was attached to the
-  // DOM. This is a good place to make AJAX requests or setTimeout.
+  };
+  this.SocketServer = undefined;
  }
-  componentDidMount() {
-    // After 3 seconds, set `loading` to false in the state.
-    setTimeout(() => {
-      this.setState({loading: false}); // this triggers a re-render!
-    }, 3000)
+
+ componentDidMount() {
+  console.log("componentDidMount <App />");
+  this.SocketServer = new WebSocket('ws://localhost:3001');
+  console.log('connectd to websocket server')
+  setTimeout(() => {
+    console.log("Simulating incoming message");
+    // Add a new message to the list of messages in the data store
+    const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
+    const messages = this.state.messages.concat(newMessage)
+
+    // Update the state of the app component.
+    // Calling setState will trigger a call to render() in App and all child components.
+    this.setState({messages: messages})
+  }, 3000);
+
+  this.SocketServer.onmessage = (event) => {
+  let newData=JSON.parse(event.data);
+  console.log("eventbeforeswitch", event)
+  switch(newData.type) {
+    case "incomingMessage":
+      let newArray = [...this.state.messages,newData]
+  this.setState({messages: newArray})
+      break;
+    case "incomingNotification":
+      console.log('usermessagedata', newData)
+      break;
+    default:
+      // show an error in the console if the message type is unknown
+      throw new Error("Unknown event type " + newData.type);
   }
+
+
+ }
+
+}
+//getting username from chatbar
+sendUserName = userContent => {   
+  let userContentObj = {
+    type: 'postNotification',
+    name: userContent
+  
+  }
+  this.setState({currentUser: userContentObj})
+
+
+  //this.SocketServer.send(JSON.stringify(userContentObj))
+  };
+
+
+ sendMsgContent = msgContent => { 
+  
+    let messageObj = {
+      type: 'postMessage',
+      username: this.state.currentUser.name,
+      content: msgContent,
+    
+    }
+
+    this.SocketServer.send(JSON.stringify(messageObj))
+};
 
   render() {
     let dfaultContent = this.state.messages;
@@ -42,8 +95,8 @@ class App extends Component {
     return (
      <div>
       <Header/>
-      <MessageList dfaultContent = {dfaultContent}/>
-      <ChatBar defaultUsername = {defaultUsername}/>
+      <MessageList dfaultContent = {dfaultContent} defaultUsername = {defaultUsername}/>
+      <ChatBar defaultUsername = {defaultUsername} sendMsgContent = {this.sendMsgContent} sendUserName = {this.sendUserName}/>
 
      </div>
     );
