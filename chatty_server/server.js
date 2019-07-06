@@ -38,10 +38,22 @@ wss.broadcast = message => {
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
+  let connectedUsers = wss.clients.size
+  let connectionObj = {count: connectedUsers,
+  type: "clientCount"}
   console.log('Client connected');
+  ws.send(JSON.stringify(connectionObj))
+  
+  
+
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => console.log('Client disconnected'));
+  let connectedUsersUpdate = wss.clients.size
+  let connectedObj = {count: connectedUsersUpdate,
+  type: "clientCountUpdate"}
+  console.log('Client connected');
+  ws.send(JSON.stringify(connectedObj))
 
   ws.on('message', message => {
     const parseMessage = JSON.parse(message);
@@ -62,9 +74,15 @@ wss.on('connection', (ws) => {
         break;
 
       case "postNotification":
-
-      console.log('sever post username ', parseMessage)
-
+        console.log('switchcase', parseMessage)
+          const userIdNotification = uuidv4();
+          const newUserObj = {
+            id: userIdNotification,
+            name: parseMessage.name,
+            type: 'incomingNotification',
+            old: parseMessage.oldName
+          }
+          wss.broadcast(JSON.stringify(newUserObj));
         // handle incoming notification
         break;
       default:
@@ -77,6 +95,8 @@ wss.on('connection', (ws) => {
     // We're going to take different actions based on the type of message
     
   });
+
+  
 });
 
 

@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
-import Message from './Message.jsx'
+import Message from './Message.jsx';
+import Notification from './Component.jsx';
+
 class MessageList extends Component {
   constructor(props){
-    super(props);
+    super(props)
   
    }
 
-  render() {
-    let contentArray = this.props.dfaultContent
-    let messages = contentArray.map((data) => (
-      <Message data={data} key= {data.id}/>
+  render(){
+    const messages = this.props.dfaultContent.map(data => {
+      switch(data.type) {
+       case "incomingMessage":
+       return <Message data={data} key= {data.id}/>
+      case "incomingNotification":
+        console.log("inc", data)
+       return <Notification dataName={data} key={data.id} />
+      }
+    })
+    
+    return(
+      <div>{messages}</div>
+    )
 
-    ));
+  
+  }}
+    
 
 
     
-    return (
-      <main className="messages">
-{messages}
-</main>
-    );
-  }
-}
-export default MessageList;
-
+export default MessageList
