@@ -59,7 +59,7 @@ class App extends Component {
       console.log('test2',newData)
     //rebuild array before sending the state
       const newNewArray = [...this.state.messages, newData]
-     
+     //resetting state
         this.setState({currentUser: newData, messages: newNewArray})
         break;
         case "clientCount":
@@ -94,8 +94,7 @@ sendUserName = userContent => {
   };
 
 //getting the message content from chatbar
- sendMsgContent = msgContent => { 
-  
+ sendMsgContent = msgContent => {
     let messageObj = {
       type: 'postMessage',
       username: this.state.currentUser.name,
