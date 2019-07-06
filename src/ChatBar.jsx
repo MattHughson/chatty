@@ -16,7 +16,7 @@ console.log('pressed enter', event.target.className)
   if(event.target.className === "chatbar-message"){
 
    this.props.sendMsgContent(event.target.value);
-  }
+  } // if its the user name check to see if its the same as the default user
    else{
      if(event.target.value !== this.props.defaultUsername){
       this.props.sendUserName(event.target.value)
