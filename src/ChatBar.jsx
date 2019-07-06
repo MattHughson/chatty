@@ -12,7 +12,6 @@ class ChatBar extends Component {
  handleSubmit = event => {
   // if it's the Enter key, send the username to app
   if (event.key === 'Enter') {
-console.log('pressed enter', event.target.className)
   if(event.target.className === "chatbar-message"){
 
    this.props.sendMsgContent(event.target.value);
@@ -22,8 +21,7 @@ console.log('pressed enter', event.target.className)
       this.props.sendUserName(event.target.value)
     }
    }
-    // resetting the local state
-    //this.setState({ message: '' });
+   
   }
 }
   render() {

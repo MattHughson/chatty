@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Message extends Component {
   constructor(props){
     super(props);
-  console.log('messageprops',props)
+    // message rendering to the list
    }
   render() {
     return (
