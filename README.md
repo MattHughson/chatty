@@ -6,10 +6,10 @@ Chatty is chat app simular to Slack or Messenger. Chatty uses React and websocke
 
 ## Images & video:
 
-<img src=" ./src/chatty.png" width="800">
+<img src="./src/chatty.png" width="800">
 
 
-<img src=" ./src/chattyvideo.gif" width="800">
+<img src="./src/chattyvideo.gif" width="800">
 
 
 ## Install
