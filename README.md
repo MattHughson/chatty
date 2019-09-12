@@ -1,45 +1,25 @@
-React Boilerplate
-=====================
+# Chatty App
 
-A minimal and light dev environment for ReactJS.
+Chatty is chat app simular to Slack or Messenger. Chatty uses React and websockets to comunnicate between two clients.
 
-### Usage
 
-Clone the boilerplate and create your own git repo.
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
+## Images & video:
 
-Install the dependencies and start the server.
+<img src="./img/chatty.png" width="800">
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
 
-### Static Files
+<img src="./img/chattyvideo.gif" width="800">
 
-You can store static files like images, fonts, etc in the `build` folder.
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+## Install
 
-### Linting
+Please follow the steps bellow to use Chatty App, 
 
-This boilerplate project includes React ESLint configuration.
+1. clone the project
+2. npm install
+3. npm start 
+4. in a seperate terminal window open the chatty_server file 
+5. npm start
 
-```
-npm run lint
-```
-
-### Dependencies
-
-* React
-* Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+Enjoy the chat
